@@ -12,7 +12,7 @@ const usernameExist = async (req, res, next) => {
 
 const usernameFree = async (req, res, next) => {
     const [user] = await Users.findBy({ username: req.body.username})
-    if(!user.length){
+    if(!user){
         next()
     } else {
         next ({ status:422, message: 'username taken' })
