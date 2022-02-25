@@ -6,7 +6,7 @@ const Users = require('./auth-model')
 const { usernameExist, usernameFree, checkUserData} = require('../middleware/auth-middleware')
 
 
-router.post('/register', usernameFree, checkUserData, (req, res, next) => {
+router.post('/register', (req, res, next) => {
   const user = req.body
   const hash = bcrypt.hashSync( user.password, 8 )
   user.password = hash
