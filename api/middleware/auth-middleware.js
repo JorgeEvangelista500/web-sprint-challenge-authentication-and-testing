@@ -20,8 +20,8 @@ const usernameFree = async (req, res, next) => {
 }
 
 const checkUserData = (req, res, next) => {
-    if(!req.body.username || !req.body.password){
-        next({ message: "username and password required"})
+    if(!req.body.username || !req.body.password) {
+        next({ status:400, message: "username and password required"})
     } else {
         next()
     }
