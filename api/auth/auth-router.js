@@ -7,7 +7,7 @@ const Users = require('./auth-model')
 const { usernameExist, usernameFree, checkUserData} = require('../middleware/auth-middleware')
 
 
-router.post('/register', usernameFree, checkUserData, (req, res, next) => {
+router.post('/register', checkUserData, usernameFree, (req, res, next) => {
   const {username, password} = req.body
   const hash = bcrypt.hashSync(password, 8 )
   Users.add({ username, password: hash})
@@ -42,7 +42,7 @@ router.post('/register', usernameFree, checkUserData, (req, res, next) => {
   */
 });
 
-router.post('/login', usernameExist, checkUserData, (req, res, next) => {
+router.post('/login',checkUserData, usernameExist, (req, res, next) => {
     if(bcrypt.compareSync(req.body.password, req.user.password)){
       const token = generateToken(req.user)
       res.status(200).json({message: `welcome, ${req.user.username}`, token })

@@ -20,13 +20,14 @@ const usernameFree = async (req, res, next) => {
 }
 
 const checkUserData = (req, res, next) => {
-    if(req.body.username && req.body.password) {
-        next()
+    if(!req.body.username){
+        next({ status:401, message: "username and password required"})
+    } else if (!req.body.password) {
+        next({ status:401, message: "username and password required"})
     } else {
-        next({ status:404, message: "username and password required"})
-    } 
+        next()
+    }
 }
-
 module.exports ={
     usernameExist,
     usernameFree,
